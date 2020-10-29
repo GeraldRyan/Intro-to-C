@@ -9,6 +9,15 @@
 */
 int string_length(char *s)
 {
+    int l = 0;
+    do {
+        // printf("PRINTING %c \n", s[l]);
+        l++;
+    }
+    while (s[l] != 0);
+    printf ("LENGTH %i \n", l);
+    return l;
+
 
 }
 
