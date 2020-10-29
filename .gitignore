@@ -65,3 +65,6 @@ queue/queue
 quicksort/quicksort
 strings/strings
 structs/structs
+
+# Visual Studio
+.vs
