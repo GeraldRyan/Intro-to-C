@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /*
     Given a character array s (as a pointer), return the number of 
@@ -10,15 +11,13 @@
 int string_length(char *s)
 {
     int l = 0;
-    do {
-        // printf("PRINTING %c \n", s[l]);
+    while (s[l] != 0)
+    {
         l++;
     }
-    while (s[l] != 0);
-    printf ("LENGTH %i \n", l);
+
+    // printf("LENGTH %i \n", l);
     return l;
-
-
 }
 
 /*
@@ -27,9 +26,34 @@ int string_length(char *s)
     enough space for the reversed string. Don't forget to terminate 
     the reversed string with a null character. Return the rv array.
 */
-char *reverse_string(char *rv, char *s)
+char *reverse_string(char **rv, char *s) 
 {
+    int length = string_length(s);
+    int temp;
+    *rv = s;
 
+    // for (int g = 0; g < length / 2; g++)
+    // {
+    //     temp = *(s+ (length - g - 1));
+    //     *(s+(length - g - 1)) = *(s+g);
+    //     *(s+g) = temp;
+    //     // s[length] = "\0";
+    // }
+    for (int g = 0; g < length / 2; g++)
+    {
+        temp = *rv[length - g - 1];
+        *rv[length - g - 1] = *rv[g];
+        *rv[g] = temp;
+        // s[length] = "\0";
+    }
+    // rv = s;
+
+    // printf("LENGTH %i, STRLEN() %lu RV %s \n", string_length(rv), strlen(rv), rv);
+    // char *str = "supercalifragilisticexpialidocious";
+    // printf("SDL:KJSDFKJSDF %s\n", str);
+    // printf("%c\n", *str);
+    // printf("%c\n", *(str +string_length(str)-1));
+    return s;
 }
 
 #ifndef TESTING
@@ -46,4 +70,3 @@ int main(void)
     return 0;
 }
 #endif
-    
