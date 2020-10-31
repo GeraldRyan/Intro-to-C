@@ -15,7 +15,19 @@
 */
 void string_copy(char *x, char *y)
 {
-
+    int i = 0;
+    while (*(y + i) != 0)
+    {
+        // with array indexing
+        // x[i] = y[i];
+        // with pointer arithmetic
+        *(x + i) = *(y + i);
+        i++;
+    }
+    *(x + i) = '\0'; // this terminates the char pointer
+    // works as planned
+    // printf("This is X: %s \n", x);
+    // printf("This is Y: %s \n ", y);
 }
 
 /*
@@ -28,7 +40,19 @@ void string_copy(char *x, char *y)
 */
 char *find_char(char *str, char c)
 {
+    printf("This is X: %s \n", str);
+    // printf("This is Y: %s \n ", c);
 
+    int i = 0;
+    while (str[i] != 0)
+    {
+        if (str[i] == c)
+        {
+            return &str[i];
+        }
+        i++;
+    }
+    return '\0';
 }
 
 /*
@@ -39,19 +63,57 @@ char *find_char(char *str, char c)
 
     Do not use the `strstr` function from the standard library.
 */
-char *find_string(char *haystack, char *needle)
-{
+// char *find_string(char *haystack, char *needle)
+// {
+//     char* pHaystack = haystack;
+//     printf("Haystack pointer %s\n", pHaystack);
 
-}
+//     int i, j, lhay = 0, lneedle = 0;
+    
+//     while (haystack[lhay] != 0)
+//     {
+//         lhay++;
+//     }
+//         // printf("length hay %i", lhay);
+//     while (needle[lneedle] != 0)
+//     {
+//         lneedle++;
+//     }
+//         // printf("length needle %i", lneedle);
+
+
+//     for (i=0; i < lhay; i++)
+//     {
+//         for (j=0; j < lneedle; j++)
+//         {
+//             printf("i %i j %i Needle %c and Haystack %c\n", i, j, needle[j], haystack[i+j]);
+//             if (needle[j] != haystack[i+j]){
+//                 break;
+//             }
+//             pHaystack = haystack+i;
+//             return pHaystack;
+//         }
+//     }
+//     char* n = "false";
+//     return n;
+// }
 
 #ifndef TESTING
 int main(void)
 {
-    char *found_char = find_char("hello", 'e');
-    char *found_string = find_string("world", "or");
 
-    printf("Found char: %s\n", found_char);
-    printf("Found string: %s\n", found_string);
+    // char *string = "hello, world";
+    // char empty[20];
+
+    // string_copy(empty, string);
+
+    char *found_char = find_char("hello", 'l');
+    printf("Found Char: %c address %p\n", found_char[0], found_char);
+    // char *found_string = find_string("world", "or");
+    // printf("Found String: %s \nlocation: %p\n", found_string, found_string);
+
+    // printf("Found char: %s\n", found_char);
+    // printf("Found string: %s\n", found_string);
 
     return 0;
 }
