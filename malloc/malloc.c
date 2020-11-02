@@ -15,7 +15,7 @@ char *string_dup(char *src)
 
     char* duplicate_string = malloc(strlen(src)* sizeof(char));
 
-    for (int i=0;i<strlen(src); i++){
+    for (int i=0;i<(int)strlen(src); i++){
         *(duplicate_string + i) = *(src + i);
     }
     return duplicate_string;
@@ -32,6 +32,11 @@ char *string_dup(char *src)
 */
 void mem_copy(void *dest, const void *src, int n)
 {
+    
+    src = (char*)src;
+    for (int i = 0; i<n; i++){
+        *((char*)dest + i) = *((char*)src +i); 
+    }
 
 }
 
