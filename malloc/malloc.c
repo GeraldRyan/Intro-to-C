@@ -53,6 +53,13 @@ void mem_copy(void *dest, const void *src, int n)
 */
 void *resize_memory(void *ptr, int old_size, int new_size)
 {
+    char *pOld = ptr;
+    char *pResized = (char*) malloc(new_size);
+    for (int i=0; i<old_size; i++){
+        if (i== new_size) break;
+        *(pResized+i) = *(pOld+i);
+    }
+    return pResized;
 
 }
 
