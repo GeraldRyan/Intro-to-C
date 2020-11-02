@@ -13,6 +13,14 @@
 char *string_dup(char *src)
 {
 
+    char* duplicate_string = malloc(strlen(src)* sizeof(char));
+
+    for (int i=0;i<strlen(src); i++){
+        *(duplicate_string + i) = *(src + i);
+    }
+    return duplicate_string;
+
+
 }
 
 /*
@@ -46,6 +54,11 @@ void *resize_memory(void *ptr, int old_size, int new_size)
 #ifndef TESTING
 int main(void)
 {
+
+    char* cp = "This is a char pointer";
+    printf("this is the char pointer: %s\n", cp);
+    cp = cp+123;
+    printf("this is the char pointer: %s\n", cp);
     char *s = "Some string to duplicate.";
     char *dup = string_dup(s);
 
