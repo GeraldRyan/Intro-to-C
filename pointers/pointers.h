@@ -5,7 +5,7 @@ void swap(int *a, int *b);
 
 int string_length(char *s);
 
-void string_copy(char *a, char *b);
+void string_copy(char *x, char *y);
 
 int string_compare(char *m, char *n);
 
