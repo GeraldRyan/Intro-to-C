@@ -8,7 +8,9 @@
     Person should have the fields `name`, `age`, `height`, and `weight`.
 */
 typedef struct Person {
-
+    char* name;
+    float height;
+    float weight;
 } Person;
 
 /*
