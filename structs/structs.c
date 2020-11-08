@@ -44,25 +44,13 @@ typedef struct Person {
 Person *createPerson(char *name, int age, int height, int weight)
 {
     Person *newPerson = malloc(sizeof(Person));
-    // newPerson->age = malloc(sizeof(int));
-    // newPerson->height = malloc(sizeof(int));
-    // newPerson->weight = malloc(sizeof(int));
-
-    // printf("Size of Person Struct %lu\n", sizeof(Person));
     newPerson->name = malloc(sizeof(name));
     string_copy(newPerson->name, name);
-    // printf("Size of name argument and name copy: %lu\n", sizeof(name));
 
 
     newPerson->height = height;
     newPerson->weight = weight;
     newPerson->age = age;
-
-
-
-    printf("Size of name in Person Struct %f\n", sizeof(name));
-
-
     return newPerson;
 }
 
@@ -72,9 +60,6 @@ Person *createPerson(char *name, int age, int height, int weight)
 */
 void destroyPerson(Person *who)
 {
-    free(who->age);
-    free(who->height);
-    free(who->weight);
     free(who->name);
     free(who);
  
