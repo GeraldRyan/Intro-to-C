@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "lib.h"
-#include "../pointers/pointers.h"
+// #include "../pointers/pointers.h"
 
 
 void string_copy(char *x, char *y)
@@ -48,10 +48,10 @@ Person *createPerson(char *name, int age, int height, int weight)
     // newPerson->height = malloc(sizeof(int));
     // newPerson->weight = malloc(sizeof(int));
 
-    printf("Size of Person Struct %lu\n", sizeof(Person));
-    // newPerson->name = malloc(sizeof(name));
-    string_copy(name, newPerson->name);
-    printf("Size of name argument and name copy: %lu\n", sizeof(name));
+    // printf("Size of Person Struct %lu\n", sizeof(Person));
+    newPerson->name = malloc(sizeof(name));
+    string_copy(newPerson->name, name);
+    // printf("Size of name argument and name copy: %lu\n", sizeof(name));
 
 
     newPerson->height = height;
@@ -60,7 +60,7 @@ Person *createPerson(char *name, int age, int height, int weight)
 
 
 
-    // printf("Size of name in Person Struct %f", sizeof(name));
+    printf("Size of name in Person Struct %f\n", sizeof(name));
 
 
     return newPerson;
