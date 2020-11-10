@@ -112,7 +112,7 @@ char *find_string(char *haystack, char *needle)
 }
 
 #ifndef TESTING
-int main(void)
+int main1(void)
 {
 
     // char *string = "hello, world";

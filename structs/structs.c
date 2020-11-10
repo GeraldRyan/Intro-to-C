@@ -1,25 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "lib.h"
-// #include "../pointers/pointers.h"
+#include "../pointers/pointers.h"
+// #include "pointers.h"
 
-
-void string_copy(char *x, char *y)
-{
-    int i = 0;
-    while (*(y + i) != 0)
-    {
-        // with array indexing
-        // x[i] = y[i];
-        // with pointer arithmetic
-        *(x + i) = *(y + i);
-        i++;
-    }
-    *(x + i) = '\0'; // this terminates the char pointer
-    // works as planned
-    // printf("This is X: %s \n", x);
-    // printf("This is Y: %s \n ", y);
-}
+// void string_copy(char *x, char *y)
+// {
+//     int i = 0;
+//     while (*(y + i) != 0)
+//     {
+//         // with array indexing
+//         // x[i] = y[i];
+//         // with pointer arithmetic
+//         *(x + i) = *(y + i);
+//         i++;
+//     }
+//     *(x + i) = '\0'; 
+//     // this terminates the char pointer
+//     // works as planned
+//     // printf("This is X: %s \n", x);
+//     // printf("This is Y: %s \n ", y);
+// }
 
 /* 
     Define the Person struct by specifying the fields that make up the
