@@ -30,11 +30,13 @@ Queue *createQueue(unsigned capacity)
 */
 void enqueue(Queue *q, int item)
 {
-    if (q->length <= q->capacity)
+    if (q->length < q->capacity)
     {
-        // *(q+q->length)->storage = item;
-        q->length++;
+        *(q->storage + q->length) = item;
         printf("Queueing, capacity: %i, current_length: %i \n", q->capacity, q->length);
+        printf("Storage position: %i, storage: %u \n", q->length, *(q->storage+q->length));
+        q->length++;
+
     }
     else
     {printf("Queue is full: capacity: %i, length: %i\n", q->capacity, q->length);}
@@ -66,7 +68,7 @@ int main(void)
     Queue *q = createQueue(4);
 
     enqueue(q, 1);
-    enqueue(q, 2);
+    enqueue(q, 7);
     enqueue(q, 3);
     enqueue(q, 4);
     enqueue(q, 5);
