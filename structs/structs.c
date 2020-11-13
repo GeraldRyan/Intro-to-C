@@ -4,7 +4,7 @@
 #include "../pointers/pointers.h"
 // #include "pointers.h"
 
-void string_copyaaaaaaaaaaaaa(char *x, char *y)
+void string_copy(char *x, char *y)
 {
     int i = 0;
     while (*(y + i) != 0)
