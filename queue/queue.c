@@ -34,12 +34,18 @@ void enqueue(Queue *q, int item)
     {
         *(q->storage + q->length) = item;
         printf("Queueing, capacity: %i, current_length: %i \n", q->capacity, q->length);
-        printf("Storage position: %i, storage: %u \n", q->length, *(q->storage+q->length));
+        printf("Storage position: %i, storage: %u \n", q->length, *(q->storage + q->length));
         q->length++;
-
     }
     else
-    {printf("Queue is full: capacity: %i, length: %i\n", q->capacity, q->length);}
+    {
+        printf("Queue is full: capacity: %i, length: %i\n", q->capacity, q->length);
+        realloc(q->storage, q->length * 2);
+        *(q->storage + q->length) = item;
+        printf("Queueing, capacity: %i, current_length: %i \n", q->capacity, q->length);
+        printf("Storage position: %i, storage: %u \n", q->length, *(q->storage + q->length));
+        q->length++;
+    }
 }
 
 /*
