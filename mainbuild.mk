@@ -4,8 +4,8 @@ EXE=$(subst .c,,$(SRC))
 # Performs a text substitution from .c to Null this text SRC. Each occurence of .c is replaced by the second arg. In other words, in this case, it strips the c value from it. In other words the EXE files are just the source files stripped of their extension. So it should create one new no extension binary for each c file....... but for each one in each directory, not each one included? 
 
 ## I GERALD RYAN ADDED THIS FROM A TUTORIAL AND I CAN DELETE IT. I AM TRYING TO GRAB THE HEADER FROM THE OTHER FILE
-INCLUDES = -I "/pointers"
-## Have to put it in somewhere, as a flag otherwise it does nothing. 
+INCLUDES = -I "/home/tutorialspoint/header"
+## Have to put it in somewhere, have not succeeded. ABORT in FAILURE> 
 ## I GERALD RYAN ADDED THIS FROM A TUTORIAL AND I CAN DELETE IT. I AM TRYING TO GRAB THE HEADER FROM THE OTHER FILE
 
 
