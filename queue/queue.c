@@ -7,6 +7,8 @@ typedef struct Queue
     unsigned int length;
     unsigned int capacity;
     int *storage;
+    unsigned int front;
+    unsigned int rear;
 } Queue;
 
 /*
@@ -20,6 +22,8 @@ Queue *createQueue(unsigned capacity)
     newQueue->capacity = capacity;
     newQueue->storage = malloc(capacity * sizeof(int));
     newQueue->length = 0;
+    newQueue->front = 0;
+    newQueue->rear = 0;
     return newQueue;
 }
 
@@ -28,34 +32,44 @@ Queue *createQueue(unsigned capacity)
     not have room, expand the queue's available storage so that it 
     does have room for the additional item.
 */
-void enqueue(Queue *q, int item)
-{
-    if (q->length < q->capacity)
-    {
-        *(q->storage + q->length) = item;
-        printf("Queueing, capacity: %i, current_length: %i \n", q->capacity, q->length);
-        printf("Storage position: %i, storage: %u \n", q->length, *(q->storage + q->length));
-        q->length++;
-    }
-    else
-    {
-        printf("Queue is full: capacity: %i, length: %i\n", q->capacity, q->length);
-        realloc(q->storage, q->length * 2);
-        *(q->storage + q->length) = item;
-        printf("Queueing, capacity: %i, current_length: %i \n", q->capacity, q->length);
-        printf("Storage position: %i, storage: %u \n", q->length, *(q->storage + q->length));
-        q->length++;
-    }
+
+void doublequeue(Queue *q){
+    printf("doubling queue from %i to %i \n", q->capacity, q->capacity*2);
+    q->capacity *=2;
+    // realloc(q->storage, q->capacity);
+
+
 }
 
+void enqueue(Queue *q, int item)
+{
+    // printf("rear and front and capacity, %i %i %i\n", q->rear, q->front, q->capacity);
+    if (q->rear == q->front && q->length != 0){
+        doublequeue(q);
+    }
+    *(q->storage + q->rear) = item;
+    printf("enqueued %i\n", item);
+    q->rear++;
+    q->length++;
+    if (q->rear == q->capacity){
+        q->rear = 0;
+    }
+}
 /*
     Removes the item at the front of the queue and returns it. 
     If the queue is empty, this function should return -1.
 */
 int dequeue(Queue *q)
 {
-    printf("Dequeue running\n");
-    return 1;
+    if (q->front == q->rear && q->length==0)
+    {
+        return -1;
+    }
+    int rvalue = *(q->storage + q->front);
+    *(q->storage + q->front) = NULL;
+    q->front++;
+    q->length--;
+    return rvalue;
 }
 
 /*
@@ -73,19 +87,19 @@ int main(void)
 {
     Queue *q = createQueue(4);
 
-    enqueue(q, 1);
+    enqueue(q, 2);
     enqueue(q, 7);
-    enqueue(q, 3);
-    enqueue(q, 4);
     enqueue(q, 5);
-    enqueue(q, 6);
+    enqueue(q, 4);
+    // enqueue(q, 5);
+    // enqueue(q, 6);
 
-    printf("%d\n", dequeue(q));
-    printf("%d\n", dequeue(q));
-    printf("%d\n", dequeue(q));
-    printf("%d\n", dequeue(q));
-    printf("%d\n", dequeue(q));
-    printf("%d\n", dequeue(q));
+    printf("Dequeued %d\n", dequeue(q));
+    printf("Dequeued %d\n", dequeue(q));
+    printf("Dequeued %d\n", dequeue(q));
+    printf("Dequeued %d\n", dequeue(q));
+    // printf("%d\n", dequeue(q));
+    // printf("%d\n", dequeue(q));
 
     destroyQueue(q);
 
