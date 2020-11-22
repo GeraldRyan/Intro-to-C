@@ -2,32 +2,22 @@
 #include <stdlib.h>
 #include "lib.h"
 #include "llqueue.h"
-#include "stdbool.h"
-
-typedef struct Node
-{
-    unsigned int length;
-    unsigned int capacity;
-    int *storage;
-    unsigned int front;
-    unsigned int rear;
-} Queue;
 
 /*
     Creates a queue by allocating the appropriate amount of memory for an
     instance of the Queue struct, and initializes all of the fields of the
-    struct. Also allocates memory for the queue's storage structure. 
+    struct. Also allocates memory for the querue's storage structure. 
 */
 void init_queue(queue *q){
     q->head = NULL;
     q->tail = NULL;
 }
 
-bool enqueue(queue *q, int item)
+bool enqueue(queue *q, int value)
 {
     node * newnode = malloc(sizeof(node));
     if (newnode == NULL) return false;
-    newnode->value = item;
+    newnode->value = value;
     newnode->next = NULL;
     if (q->tail != NULL){
         q->tail->next = newnode;
@@ -63,7 +53,7 @@ int dequeue(queue *q)
     Frees the memory used to hold the queue instance and its
     associated storage. 
 */
-void destroyQueue(Queue *q)
+void destroyQueue(queue *q)
 {
     // free(q->storage);
     free(q);
@@ -72,24 +62,33 @@ void destroyQueue(Queue *q)
 #ifndef TESTING
 int main(void)
 {
-    queue *q = init_queue();
+    queue *q;
+    init_queue(&q);
+    printf("q and &q: %u %u \n", q, &q);
+    enqueue(&q, 1);
+    printf("q and &q: %u %u \n", q->head, &q);
 
-    enqueue(q, 1);
-    enqueue(q, 2);
-    enqueue(q, 3);
-    enqueue(q, 4);
-    dequeue(q);
-    dequeue(q);
-    enqueue(q, 5);
-    enqueue(q, 6);
-    enqueue(q, 7);
+    enqueue(&q, 2);
+    printf("q and &q: %u %u \n", q, &q);
+
+    enqueue(&q, 3);
+    printf("q and &q: %u %u \n", q->head, &q);
+
+    enqueue(&q, 4);
+    printf("q and &q: %u %u \n", q, &q);
+
+    dequeue(&q);
+    dequeue(&q);
+    enqueue(&q, 5);
+    enqueue(&q, 6);
+    enqueue(&q, 7);
 
     // enqueue(q, 6);
 
-    printf("Dequeued %d\n", dequeue(q));
-    printf("Dequeued %d\n", dequeue(q));
-    printf("Dequeued %d\n", dequeue(q));
-    printf("Dequeued %d\n", dequeue(q));
+    printf("Dequeued %d\n", dequeue(&q));
+    printf("Dequeued %d\n", dequeue(&q));
+    printf("Dequeued %d\n", dequeue(&q));
+    printf("Dequeued %d\n", dequeue(&q));
     // printf("%d\n", dequeue(q));
     // printf("%d\n", dequeue(q));
 
