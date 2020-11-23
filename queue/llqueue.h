@@ -15,7 +15,6 @@ typedef struct
 } queue;
 
 void init_queue(queue *q);
-
 bool enqueue(queue *q, int value);
 int dequeue(queue *q);
 
