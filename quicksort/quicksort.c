@@ -15,17 +15,6 @@
     Do not just use the `qsort` function from the standard library.
 */
 
-void quicksort(int *arr, int low, int high)
-{
-    if (low < high)
-    {
-        int p = partition(arr, low, high);
-        quicksort(arr, low, p);
-        quicksort(arr, p + 1, high);
-    }
-    return;
-}
-
 int partition(int *a, int lo, int hi)
 {
     int pivot = a[(hi + lo)/2];
@@ -49,15 +38,22 @@ int partition(int *a, int lo, int hi)
         int temp = a[i];
         a[i] = a[j];
         a[j] = temp; 
-
-
-
-        // swap(a[i], a[j]);
     }
 }
+void quicksort(int *arr, int low, int high)
+{
+    if (low < high)
+    {
+        int p = partition(arr, low, high);
+        quicksort(arr, low, p);
+        quicksort(arr, p + 1, high);
+    }
+    return;
+}
+
 
 #ifndef TESTING
-int main(void)
+int mainq(void)
 {
     int arr1[] = {100, 55, 4, 98, 10, 18, 90, 95, 43, 11, 47, 67, 89, 42, 49, 79};
     int n = sizeof(arr1) / sizeof(arr1[0]);

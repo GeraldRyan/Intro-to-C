@@ -1,7 +1,9 @@
+#pragma once
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include "../quicksort/quicksort.h"
 
 char HANG_STATES[7][10 * 9 + 1] =
 		{
@@ -67,6 +69,20 @@ void append_and_order(int *results, int res_length, int *all_found, int *size_al
 	printf("NOW ALL FOUND AGAIN\n");
 	print_each_i(all_found, *size_all);
 	printf("size of all found %i\n", *size_all);
+	printf("ALL FOUND SORTED\n");
+	quicksort(all_found, 0,*size_all-1);
+	print_each_i(all_found, *size_all);
+
+
+
+// Botom line quicksort works
+	// int array[6] = {5,4,3,2,1,0};
+	// printf("ARRAY NOT QUICKSORTED\n");
+	// print_each_i(array, 6);
+	// quicksort(array, 0, 5);
+	// printf("The array is quicksorted");
+	// print_each_i(array, 6);
+
 
 }
 void print_each_s(char *s)
