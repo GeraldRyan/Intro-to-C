@@ -25,23 +25,23 @@ void print_each_i(int *a, int size)
 	printf("}\n");
 }
 
-// void reveal_it(char *word, int *locations)
-// {
-// 	for (int i = 0; i < strlen(word); i++)
-// 	{
-// 		if (i == locations)
-// 		{
+void reveal_word(char *word, int *locations)
+{
+	for (int i = 0; i < strlen(word); i++)
+	{
+		if (i == *locations)
+		{
 
-// 			printf(word[i]);
-// 		}
-// 		else
-// 		{
-// 			printf("-");
-// 		}
-// 		locations++;
-// 	}
-// 	printf("\n");
-// }
+			printf("%c", word[i]);
+			locations++;
+		}
+		else
+		{
+			printf("-");
+		}
+	}
+	printf("\n");
+}
 
 void string_lower(char *s)
 {
@@ -60,30 +60,27 @@ void append_and_order(int *results, int res_length, int *all_found, int *size_al
 	print_each_i(results, res_length);
 	printf("length of results %i\n", res_length);
 
-	all_found = (int*) realloc(all_found,sizeof(int)*(res_length + *size_all));
-	
-	for (int i = 0; i<res_length; i++){
-		all_found[*size_all+i] = results[i];
+	all_found = (int *)realloc(all_found, sizeof(int) * (res_length + *size_all));
+
+	for (int i = 0; i < res_length; i++)
+	{
+		all_found[*size_all + i] = results[i];
 	}
-	*size_all +=res_length;
+	*size_all += res_length;
 	printf("NOW ALL FOUND AGAIN\n");
 	print_each_i(all_found, *size_all);
 	printf("size of all found %i\n", *size_all);
 	printf("ALL FOUND SORTED\n");
-	quicksort(all_found, 0,*size_all-1);
+	quicksort(all_found, 0, *size_all - 1);
 	print_each_i(all_found, *size_all);
 
-
-
-// Botom line quicksort works
+	// Botom line quicksort works
 	// int array[6] = {5,4,3,2,1,0};
 	// printf("ARRAY NOT QUICKSORTED\n");
 	// print_each_i(array, 6);
 	// quicksort(array, 0, 5);
 	// printf("The array is quicksorted");
 	// print_each_i(array, 6);
-
-
 }
 void print_each_s(char *s)
 {
@@ -197,16 +194,15 @@ int main(int argc, char *argv[])
 		else if (res_len == 1)
 		{
 			printf("There is 1 %c!\n", guess);
-			append_and_order(result, res_len, all_found, &size_all); // right now just prints. later it will append and order. 
+			append_and_order(result, res_len, all_found, &size_all); // right now just prints. later it will append and order.
 		}
 		else if (res_len > 1)
 		{
 			// printf(res_len);
 			printf("There are %d %c's!!\n", res_len, guess);
 			append_and_order(result, res_len, all_found, &size_all);
-
 		}
-
+		reveal_word(answer, all_found);
 		// print_each_i(result, result_size);
 		printf(" ");
 	}
