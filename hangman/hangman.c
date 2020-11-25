@@ -15,13 +15,31 @@ char HANG_STATES[7][10 * 9 + 1] =
 
 void print_each_i(int *a, int size)
 {
-	printf("Locations found:{ ");
+	printf("{ ");
 	for (int i = 0; i < size; i++)
 	{
 		printf("%i ", a[i]);
 	}
 	printf("}\n");
 }
+
+// void reveal_it(char *word, int *locations)
+// {
+// 	for (int i = 0; i < strlen(word); i++)
+// 	{
+// 		if (i == locations)
+// 		{
+
+// 			printf(word[i]);
+// 		}
+// 		else
+// 		{
+// 			printf("-");
+// 		}
+// 		locations++;
+// 	}
+// 	printf("\n");
+// }
 
 void string_lower(char *s)
 {
@@ -31,10 +49,30 @@ void string_lower(char *s)
 	}
 }
 
+void append_and_order(int *results, int res_length, int *all_found, int *size_all)
+{
+	printf("FIRST PASS ALL FOUND\n");
+	print_each_i(all_found, *size_all);
+	printf("size of all found %i\n", *size_all);
+	printf("RESULTS THIS TIME\n");
+	print_each_i(results, res_length);
+	printf("length of results %i\n", res_length);
+
+	all_found = (int*) realloc(all_found,sizeof(int)*(res_length + *size_all));
+	
+	for (int i = 0; i<res_length; i++){
+		all_found[*size_all+i] = results[i];
+	}
+	*size_all +=res_length;
+	printf("NOW ALL FOUND AGAIN\n");
+	print_each_i(all_found, *size_all);
+	printf("size of all found %i\n", *size_all);
+
+}
 void print_each_s(char *s)
 {
 	// char* s = a;
-	printf("Guesses:{");
+	printf(":{");
 	for (int i = 0; i < strlen(s); i++)
 	{
 		printf("%c ", s[i]);
@@ -77,7 +115,7 @@ int validate_guess(char *previous, char g) // this is returning a 1 and should r
 	// printf("bFound should be 0 (pass) or a positive int (fail): %i\n", bFound);
 	if (bFound > 0)
 	{
-		printf("You have already guessed this letter. Try a different one\n");
+		printf("You have already guessed this letter. Try a different one!\n\n");
 		return 0;
 	}
 	else
@@ -92,17 +130,19 @@ int main(int argc, char *argv[])
 	/* Your code here */
 
 	int NUM_TRIES = 8;
+	int *all_found = (int *)malloc(1);
+	int size_all = 0;
 	char *answer = argv[1];
 	string_lower(answer);
 	char guess;
 	char *previous = (char *)malloc(sizeof(char));
-	printf("Welcome to Hangman\n");
-	printf("What is the word of the day?\n");
-	printf("You have chosen a word of length %lu\n", strlen(answer));
+	printf("Welcome to Hangman. ");
+	printf("Can you guess the word of the day?\n");
+	printf("You have chosen a word of %lu letters.\n", strlen(answer));
 	for (int i = 0; i < NUM_TRIES; i++)
 	{
 		printf("\nRound %i!\n", i + 1);
-		printf("previous letters guessed: %s\n", previous);
+		printf("previous letters guessed: %s\n\n", previous);
 		while (1)
 		{
 			switch (i)
@@ -124,7 +164,7 @@ int main(int argc, char *argv[])
 				previous[i] = guess;
 				previous = (char *)realloc(previous, sizeof(char) * (i + 1));
 				previous[i] = guess;
-				print_each_s(previous);
+				// print_each_s(previous);
 				break;
 			}
 		}
@@ -132,7 +172,7 @@ int main(int argc, char *argv[])
 		int result_size;
 		result = find_chars(answer, guess, &result_size);
 		int res_len = result_size;
-		printf("Size of res length, %i\n", res_len);
+		// printf("Size of res length, %i\n", res_len);
 
 		if (res_len == 0)
 		{
@@ -140,15 +180,18 @@ int main(int argc, char *argv[])
 		}
 		else if (res_len == 1)
 		{
-			printf("There is 1 %c\n", guess);
+			printf("There is 1 %c!\n", guess);
+			append_and_order(result, res_len, all_found, &size_all); // right now just prints. later it will append and order. 
 		}
 		else if (res_len > 1)
 		{
 			// printf(res_len);
-			printf("There are %d %c's\n", res_len, guess);
+			printf("There are %d %c's!!\n", res_len, guess);
+			append_and_order(result, res_len, all_found, &size_all);
+
 		}
 
-		print_each_i(result, result_size);
+		// print_each_i(result, result_size);
 		printf(" ");
 	}
 
