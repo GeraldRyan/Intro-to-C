@@ -1,9 +1,9 @@
-#pragma once
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "../quicksort/quicksort.h"
+#include "../quicksort/quicksort.c"
+
 
 char HANG_STATES[7][10 * 9 + 1] =
 		{
@@ -27,6 +27,7 @@ void print_each_i(int *a, int size)
 
 void reveal_word(char *word, int *locations)
 {
+	printf("The Word is: ");
 	for (int i = 0; i < strlen(word); i++)
 	{
 		if (i == *locations)
@@ -75,12 +76,12 @@ void append_and_order(int *results, int res_length, int *all_found, int *size_al
 	print_each_i(all_found, *size_all);
 
 	// Botom line quicksort works
-	// int array[6] = {5,4,3,2,1,0};
-	// printf("ARRAY NOT QUICKSORTED\n");
-	// print_each_i(array, 6);
-	// quicksort(array, 0, 5);
-	// printf("The array is quicksorted");
-	// print_each_i(array, 6);
+	int array[6] = {5,4,3,2,1,0};
+	printf("ARRAY NOT QUICKSORTED\n");
+	print_each_i(array, 6);
+	quicksort(array, 0, 5);
+	printf("The array is quicksorted");
+	print_each_i(array, 6);
 }
 void print_each_s(char *s)
 {
@@ -146,6 +147,10 @@ int main(int argc, char *argv[])
 	int *all_found = (int *)malloc(1);
 	int size_all = 0;
 	char *answer = argv[1];
+	if (answer == NULL){
+		printf("Please provide a secret word as the first argument. (exiting). \n");
+		return 0;
+	}
 	string_lower(answer);
 	char guess;
 	char *previous = (char *)malloc(sizeof(char));
@@ -161,7 +166,7 @@ int main(int argc, char *argv[])
 			switch (i)
 			{
 			case 0:
-				printf("Guess a letter: ");
+				printf("Guess a letter, or the word: ");
 				break;
 			default:
 				printf("Guess again (%i remaining):", NUM_TRIES - i);
