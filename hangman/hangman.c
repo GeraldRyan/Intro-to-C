@@ -3,6 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 #include "../quicksort/quicksort.c"
+#include "./utilities.h"
 
 
 char HANG_STATES[7][10 * 9 + 1] =
@@ -15,15 +16,7 @@ char HANG_STATES[7][10 * 9 + 1] =
 				"             |         |         |         |         |         |         |         |      \0",
 				"/*****\\   /*****\\   /*****\\   /*****\\   /*****\\   /*****\\   /*****\\   /*****\\   /*****\\   \0"};
 
-void print_each_i(int *a, int size)
-{
-	printf("{ ");
-	for (int i = 0; i < size; i++)
-	{
-		printf("%i ", a[i]);
-	}
-	printf("}\n");
-}
+
 
 void reveal_word(char *word, int *locations)
 {
@@ -83,16 +76,7 @@ void append_and_order(int *results, int res_length, int *all_found, int *size_al
 	printf("The array is quicksorted");
 	print_each_i(array, 6);
 }
-void print_each_s(char *s)
-{
-	// char* s = a;
-	printf(":{");
-	for (int i = 0; i < strlen(s); i++)
-	{
-		printf("%c ", s[i]);
-	}
-	printf("}\n");
-}
+
 
 int *find_chars(char *s, char c, int *size)
 {
@@ -200,13 +184,17 @@ int main(int argc, char *argv[])
 		{
 			printf("There is 1 %c!\n", guess);
 			append_and_order(result, res_len, all_found, &size_all); // right now just prints. later it will append and order.
+			i--;
 		}
 		else if (res_len > 1)
 		{
 			// printf(res_len);
+			i--;
 			printf("There are %d %c's!!\n", res_len, guess);
 			append_and_order(result, res_len, all_found, &size_all);
 		}
+		printf("PRINTING ALL FOUND SO FAR\n");
+		print_each_i(all_found, size_all);
 		reveal_word(answer, all_found);
 		// print_each_i(result, result_size);
 		printf(" ");
