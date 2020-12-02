@@ -15,6 +15,19 @@ char HANG_STATES[7][10 * 9 + 1] =
 				"             |         |         |         |         |         |         |         |      \0",
 				"/*****\\   /*****\\   /*****\\   /*****\\   /*****\\   /*****\\   /*****\\   /*****\\   /*****\\   \0"};
 
+void display_hang_state(int try)
+{
+	printf("Displaying Hang State\n");
+	for (int j = 0; j < 7; j++)
+	{
+		for (int k = 0; k < 10; k++)
+		{
+			printf("%c", HANG_STATES[j][k+10*try]);
+		}
+		printf("\n");
+	}
+}
+
 void reveal_word(char *word, int *locations)
 {
 	printf("The Word is: ");
@@ -34,6 +47,8 @@ void reveal_word(char *word, int *locations)
 	}
 	printf("\n");
 }
+
+
 
 void append_and_order(int *results, int res_length, int *all_found, int *size_all_found)
 {
@@ -130,7 +145,7 @@ int main(int argc, char *argv[])
 {
 	/* Your code here */
 
-	int NUM_TRIES = 8;
+	int NUM_TRIES = 9;
 	int *all_found = (int *)malloc(0);
 	int size_all_found = 0;
 	char *answer = argv[1];
@@ -207,6 +222,7 @@ int main(int argc, char *argv[])
 		if (res_len == 0)
 		{
 			printf("There are no %c's in the word\n", guess);
+			display_hang_state(i);
 		}
 		else if (res_len == 1)
 		{
