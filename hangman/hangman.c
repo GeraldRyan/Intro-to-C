@@ -229,6 +229,6 @@ int main(int argc, char *argv[])
 		// print_each_i(result, result_size);
 		printf(" ");
 	}
-
+	printf(">>>>>>>>>I'm so sorry, you did not get it this time. Please come back and try your luck later\n");
 	return 0;
 }
