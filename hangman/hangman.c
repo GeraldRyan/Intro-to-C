@@ -5,15 +5,15 @@
 #include "../quicksort/quicksort.c"
 #include "./utilities.h"
 
-char HANG_STATES[7][10 * 9 + 1] =
-		{
-				"             +         +----     +----     +----     +----     +----     +----     +----  \0",
-				"             |         |         |   O     |   O     |   O     |   O     |   O     |   O  \0",
-				"             |         |         |         |   +     | --+     | --+--   | --+--   | --+--\0",
-				"             |         |         |         |   |     |   |     |   |     |   |     |   |  \0",
-				"             |         |         |         |         |         |         |  /      |  / \\ \0",
-				"             |         |         |         |         |         |         |         |      \0",
-				"/*****\\   /*****\\   /*****\\   /*****\\   /*****\\   /*****\\   /*****\\   /*****\\   /*****\\   \0"};
+// char HANG_STATES[7][10 * 9 + 1] =
+// 		{
+// 				"             +         +----     +----     +----     +----     +----     +----     +----  \0",
+// 				"             |         |         |   O     |   O     |   O     |   O     |   O     |   O  \0",
+// 				"             |         |         |         |   +     | --+     | --+--   | --+--   | --+--\0",
+// 				"             |         |         |         |   |     |   |     |   |     |   |     |   |  \0",
+// 				"             |         |         |         |         |         |         |  /      |  / \\ \0",
+// 				"             |         |         |         |         |         |         |         |      \0",
+// 				"/*****\\   /*****\\   /*****\\   /*****\\   /*****\\   /*****\\   /*****\\   /*****\\   /*****\\   \0"};
 
 void display_hang_state(int try)
 {
@@ -28,7 +28,7 @@ void display_hang_state(int try)
 	}
 }
 
-void reveal_word(char *word, int *locations)
+void reveal_word(char *word, int *locations) //TODO Fix this bug, not always revealing when guess is right. Sometimes reseting display
 {
 	printf("The Word is: ");
 	for (int i = 0; i < strlen(word); i++)
@@ -132,6 +132,7 @@ int validate_guess(char *previous, char g) // this is returning a 1 and should r
 	if (bFound > 0)
 	{
 		printf("You have already guessed this letter. Try a different one!\n\n");
+
 		return 0;
 	}
 	else
@@ -148,12 +149,16 @@ int main(int argc, char *argv[])
 	int NUM_TRIES = 9;
 	int *all_found = (int *)malloc(0);
 	int size_all_found = 0;
-	char *answer = argv[1];
-	if (answer == NULL)
-	{
-		printf("Please provide a secret word as the first argument. (exiting). \n");
-		return 0;
-	}
+	// char *answer = argv[1];
+	// if (answer == NULL)
+	// {
+	// 	printf("Please provide a secret word as the first argument. (exiting). \n");
+	// 	return 0;
+	// }
+	int rr = rand();
+	int r = rr % 7;  //TODO Fix this bug NOT GIVING RIGHT RANDOM ANSWER- ALWAYS A CONSTANT
+	char* answer = WORD_DICTIONARY[r];  
+	printf("Secret answer %i %i %s", rr, r, WORD_DICTIONARY[r]);
 	string_lower(answer);
 	char guess;
 	char bguess_word;
