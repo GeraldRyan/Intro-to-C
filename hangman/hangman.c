@@ -22,7 +22,7 @@ void display_hang_state(int try)
 	{
 		for (int k = 0; k < 10; k++)
 		{
-			printf("%c", HANG_STATES[j][k+10*try]);
+			printf("%c", HANG_STATES[j][k + 10 * try]);
 		}
 		printf("\n");
 	}
@@ -31,6 +31,7 @@ void display_hang_state(int try)
 void reveal_word(char *word, int *locations) //TODO Fix this bug, not always revealing when guess is right. Sometimes reseting display
 {
 	printf("The Word is: ");
+	printf("locations, %i \n", locations);
 	for (int i = 0; i < strlen(word); i++)
 	{
 		if (i + 1 == *locations) // 1-indexes to avoid null pointer false positive.
@@ -47,8 +48,6 @@ void reveal_word(char *word, int *locations) //TODO Fix this bug, not always rev
 	}
 	printf("\n");
 }
-
-
 
 void append_and_order(int *results, int res_length, int *all_found, int *size_all_found)
 {
@@ -70,7 +69,7 @@ void append_and_order(int *results, int res_length, int *all_found, int *size_al
 	// print_each_i(all_found, *size_all_found);
 	// printf("size of all found %i\n", *size_all_found);
 	// printf("ALL FOUND SORTED\n");
-	// quicksort(all_found, 0, *size_all_found - 1);
+	quicksort(all_found, 0, *size_all_found - 1);
 	// print_each_i(all_found, *size_all_found);
 
 	// Botom line quicksort works
@@ -149,16 +148,20 @@ int main(int argc, char *argv[])
 	int NUM_TRIES = 9;
 	int *all_found = (int *)malloc(0);
 	int size_all_found = 0;
-	// char *answer = argv[1];
-	// if (answer == NULL)
-	// {
-	// 	printf("Please provide a secret word as the first argument. (exiting). \n");
-	// 	return 0;
-	// }
-	int rr = rand();
-	int r = rr % 7;  //TODO Fix this bug NOT GIVING RIGHT RANDOM ANSWER- ALWAYS A CONSTANT
-	char* answer = WORD_DICTIONARY[r];  
-	printf("Secret answer %i %i %s", rr, r, WORD_DICTIONARY[r]);
+	char *answer;
+
+	if (argv[1] != NULL)
+	{
+		answer = argv[1];
+	}
+	else
+	{
+		int rr = rand();
+		int r = rr % 7; //TODO Fix this bug NOT GIVING RIGHT RANDOM ANSWER- ALWAYS A CONSTANT
+		answer = WORD_DICTIONARY[r];
+		printf("Secret answer %i %i %s", rr, r, WORD_DICTIONARY[r]);
+	}
+
 	string_lower(answer);
 	char guess;
 	char bguess_word;
@@ -246,7 +249,13 @@ int main(int argc, char *argv[])
 		}
 		// printf("PRINTING ALL FOUND SO FAR\n");
 		// print_each_i(all_found, size_all_found);
+		printf("all_found 249 %i\n", all_found);
+		print_each_i(all_found, size_all_found);
 		reveal_word(answer, all_found);
+		printf("all_found 251 %i\n", all_found);
+		print_each_i(all_found, size_all_found);
+
+
 		// print_each_i(result, result_size);
 		printf(" ");
 	}
