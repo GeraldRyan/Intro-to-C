@@ -26,3 +26,11 @@ void print_each_s(char *s)
 	}
 	printf("}\n");
 }
+
+void string_lower(char *s)
+{
+	for (int i = 0; i < strlen(s); i++)
+	{
+		s[i] = tolower(s[i]);
+	}
+}
