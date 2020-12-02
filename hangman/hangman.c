@@ -37,12 +37,12 @@ void reveal_word(char *word, int *locations)
 
 void append_and_order(int *results, int res_length, int *all_found, int *size_all_found)
 {
-	printf("FIRST PASS ALL FOUND\n");
-	print_each_i(all_found, *size_all_found);
-	printf("size of all found %i\n", *size_all_found);
-	printf("RESULTS THIS TIME\n");
-	print_each_i(results, res_length);
-	printf("length of results %i\n", res_length);
+	// printf("FIRST PASS ALL FOUND\n");
+	// print_each_i(all_found, *size_all_found);
+	// printf("size of all found %i\n", *size_all_found);
+	// printf("RESULTS THIS TIME\n");
+	// print_each_i(results, res_length);
+	// printf("length of results %i\n", res_length);
 
 	all_found = (int *)realloc(all_found, sizeof(int) * (res_length + *size_all_found));
 
@@ -51,12 +51,12 @@ void append_and_order(int *results, int res_length, int *all_found, int *size_al
 		all_found[*size_all_found + i] = results[i];
 	}
 	*size_all_found += res_length;
-	printf("NOW ALL FOUND AGAIN\n");
-	print_each_i(all_found, *size_all_found);
-	printf("size of all found %i\n", *size_all_found);
-	printf("ALL FOUND SORTED\n");
-	quicksort(all_found, 0, *size_all_found - 1);
-	print_each_i(all_found, *size_all_found);
+	// printf("NOW ALL FOUND AGAIN\n");
+	// print_each_i(all_found, *size_all_found);
+	// printf("size of all found %i\n", *size_all_found);
+	// printf("ALL FOUND SORTED\n");
+	// quicksort(all_found, 0, *size_all_found - 1);
+	// print_each_i(all_found, *size_all_found);
 
 	// Botom line quicksort works
 	// int array[6] = {5, 4, 3, 2, 1, 0};
@@ -65,6 +65,20 @@ void append_and_order(int *results, int res_length, int *all_found, int *size_al
 	// quicksort(array, 0, 5);
 	// printf("The array is quicksorted");
 	// print_each_i(array, 6);
+}
+
+int guess_word(char *guess, char *answer)
+{
+	if (strcmp(guess, answer) == 0)
+	{
+		printf("Congratulations, that's right!!!!!!!!!!!!\n");
+		return 1;
+	}
+	else
+	{
+		printf("Sorry that's not the right word. Please keep trying\n");
+		return 0;
+	}
 }
 
 int *find_chars(char *s, char c, int *size)
@@ -107,7 +121,7 @@ int validate_guess(char *previous, char g) // this is returning a 1 and should r
 	}
 	else
 	{
-		printf("Good Guess. Let's see...\n");
+		printf("Good Guess. Let's see... ");
 	}
 	return 1;
 }
@@ -127,6 +141,8 @@ int main(int argc, char *argv[])
 	}
 	string_lower(answer);
 	char guess;
+	char bguess_word;
+	char *word_guess = malloc(sizeof(char) * 10);
 	char *previous = (char *)malloc(sizeof(char));
 	int correct_answer_counter = 0;
 	printf("Welcome to Hangman. ");
@@ -136,12 +152,33 @@ int main(int argc, char *argv[])
 	{
 		printf("\nRound %i!\n", i + 1);
 		printf("previous letters guessed: %s\n\n", previous);
+
+		printf("Do you want to try guess the word (y/n)?: ");
+		scanf(" %c", &bguess_word);
+		if (bguess_word == 'y')
+		{
+			printf("Enter your chosen word:");
+			scanf("%s", word_guess);
+			printf("\n");
+			printf("You entered %s\n", word_guess);
+			if (guess_word(word_guess, answer))
+			{
+				printf("Congratulations again. You are definitely going places\n");
+				return 0;
+			}
+			else
+			{
+				printf("Word Guess and Answer %s %s %i %i \n", word_guess, answer, strlen(word_guess), strlen(answer));
+				printf("Better luck next time\n");
+				continue;
+			}
+		}
 		while (1)
 		{
 			switch (i)
 			{
 			case 0:
-				printf("Guess a letter, or the word: ");
+				printf("Guess a letter then: ");
 				break;
 			default:
 				printf("Guess again (%i remaining):", NUM_TRIES - i);
@@ -186,8 +223,8 @@ int main(int argc, char *argv[])
 			append_and_order(result, res_len, all_found, &size_all_found);
 			correct_answer_counter++;
 		}
-		printf("PRINTING ALL FOUND SO FAR\n");
-		print_each_i(all_found, size_all_found);
+		// printf("PRINTING ALL FOUND SO FAR\n");
+		// print_each_i(all_found, size_all_found);
 		reveal_word(answer, all_found);
 		// print_each_i(result, result_size);
 		printf(" ");
